@@ -82,15 +82,6 @@ func CreateStorageKey(meta *Metadata, prefix, method string, args ...[]byte) (St
 	// which is more alike the old 'NMap': a Map with n keys (n >= 1).
 	// The old variants are now unified thus IsMap() is true for all.
 	if entryMeta.IsMap() {
-		hashers, err := entryMeta.Hashers()
-		if err != nil {
-			return nil, fmt.Errorf("unable to get hashers for %s map", method)
-		}
-		if len(hashers) != len(validatedArgs) {
-			return nil, fmt.Errorf("%s:%s is a map, therefore requires that number of arguments should "+
-				"exactly match number of hashers in metadata. "+
-				"Expected: %d, received: %d", prefix, method, len(hashers), len(validatedArgs))
-		}
 		return createKeyMap(method, prefix, validatedArgs, entryMeta)
 	}
 
